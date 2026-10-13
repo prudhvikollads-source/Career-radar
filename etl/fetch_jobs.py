@@ -8,7 +8,7 @@ Output: web/data/jobs.json
 import json, re, sys
 from html.parser import HTMLParser
 from html import unescape as html_unescape
-from datetime import datetime, timezone
+from datetime import datetime, timedelta, timezone
 from concurrent.futures import ThreadPoolExecutor
 import requests
 
@@ -518,6 +518,12 @@ def main():
                 if pub_dt else None
         except Exception:
             pub_iso = None
+        # Freshness policy: drop postings older than 60 days. Stale
+        # listings (often already filled) otherwise drown out real
+        # openings and mislead the "posted X ago" display.
+        if pub_dt is not None and \
+                datetime.now(timezone.utc) - pub_dt > timedelta(days=60):
+            continue
         jobs.append({
             "t": c["title"][:120], "co": c["company"][:60],
             "city": clean_city(c["loc"]), "country": country,
