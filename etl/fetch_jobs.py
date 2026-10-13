@@ -40,15 +40,15 @@ GREENHOUSE_BOARDS = [
 LEVER_BOARDS = ['prosper']
 
 # ------------------------------------------------- country/threshold config --
-COUNTRIES = ["USA", "India", "United Kingdom", "UAE", "Saudi Arabia",
+COUNTRIES = ["India", "United Kingdom", "UAE", "Saudi Arabia",
              "Kuwait", "Canada", "Netherlands", "New Zealand", "Poland"]
-COUNTRY_CURRENCY = {"USA": "USD", "India": "INR", "United Kingdom": "GBP",
+COUNTRY_CURRENCY = {"India": "INR", "United Kingdom": "GBP",
                     "UAE": "AED", "Saudi Arabia": "SAR", "Kuwait": "KWD",
                     "Canada": "CAD", "Netherlands": "EUR",
                     "New Zealand": "NZD", "Poland": "PLN"}
 # Annual gross salary in local currency at/above which the INR 5L/month
 # post-tax-and-expenses savings goal is considered met (midpoint of range).
-THRESHOLDS = {"USA": 175000, "India": 9500000, "United Kingdom": 128000,
+THRESHOLDS = {"India": 9500000, "United Kingdom": 128000,
               "UAE": 420000, "Saudi Arabia": 370000, "Kuwait": 29000,
               "Canada": 190000, "Netherlands": 128000,
               "New Zealand": 225000, "Poland": 660000}
@@ -107,16 +107,17 @@ US_CITIES = ["new york city","nyc","los angeles","san francisco","san jose",
     "chesapeake","suffolk","hampton","portsmouth","hopewell","petersburg"]
 
 def map_country(loc):
-    """Map a free-text ATS location to one of the 10 countries, else None."""
+    """Map a free-text ATS location to one of the 9 countries, else None.
+    USA locations are intentionally excluded (not returned)."""
     if not loc:
         return None
     s = loc.lower().split(";")[0].strip().replace(".", "")
     if not s or s in ("remote", "hybrid", "in-office", "in office",
                       "on-site", "onsite", "flexible"):
         return None
-    # remote with explicit geography
+    # remote with explicit geography (USA excluded by design)
     if "remote" in s:
-        if re.search(r"\bunited states\b|\busa?\b|[- ]us\b", s): return "USA"
+        if re.search(r"\bunited states\b|\busa?\b|[- ]us\b", s): return None
         if "india" in s: return "India"
         if re.search(r"\buk\b|united kingdom|england", s): return "United Kingdom"
         if "canada" in s: return "Canada"
@@ -162,12 +163,12 @@ def map_country(loc):
             or "wroclaw" in s or "wrocław" in s or "gdansk" in s
             or "gdańsk" in s or "poznan" in s or "poznań" in s):
         return "Poland"
-    # USA last (broadest)
+    # USA excluded by design — US locations fall through to None
     if ("united states" in s or re.search(r"\busa\b", s)
             or any(st in s for st in US_STATES)
             or any(c in s for c in US_CITIES)
             or re.search(r",\s*(" + "|".join(US_ABBR) + r")\b", s)):
-        return "USA"
+        return None
     return None
 
 def clean_city(loc):
