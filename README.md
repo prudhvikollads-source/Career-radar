@@ -12,15 +12,15 @@ Live site: `https://prudhvikollads-source.github.io/career-radar/web/`
   (`boards-api.greenhouse.io`) and Lever (`api.lever.co`) APIs. No API keys,
   no login, no scraping of private pages.
 - Keeps only titles matching the target profiles and maps each posting to one
-  of 10 countries: USA, India, United Kingdom, UAE, Saudi Arabia, Kuwait,
-  Canada, Netherlands, New Zealand, Poland. Everything else is dropped.
+  of 9 countries: India, United Kingdom, UAE, Saudi Arabia, Kuwait,
+  Canada, Netherlands, New Zealand, Poland. Everything else is dropped
+  (USA excluded by design).
 - Flags every job against a **savings goal**: save **₹5 lakhs/month** after
   taxes and living costs. Per-country annual gross thresholds used for the
   "Meets savings goal" badge:
 
 | Country | Threshold (annual, local) |
 |---|---|
-| USA | USD 175,000 |
 | India | INR 9,500,000 |
 | United Kingdom | GBP 128,000 |
 | UAE | AED 420,000 |
