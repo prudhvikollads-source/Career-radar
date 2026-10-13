@@ -150,7 +150,7 @@
     if (th && m.thresholds) {
       th.innerHTML = m.countries
         .map(function (c) {
-          var cur = { USA: "USD", India: "INR", "United Kingdom": "GBP",
+          var cur = { India: "INR", "United Kingdom": "GBP",
             UAE: "AED", "Saudi Arabia": "SAR", Kuwait: "KWD",
             Canada: "CAD", Netherlands: "EUR", "New Zealand": "NZD",
             Poland: "PLN" }[c];
