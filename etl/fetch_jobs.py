@@ -36,8 +36,82 @@ GREENHOUSE_BOARDS = [
     'otterai','descript','orcasecurity','observeai','consensys','calendly',
     'expel','stackblitz','udio','lightmatter','pantheon','acquia','duda',
     'tigera','upbound','scaleai','snorkelai','labelbox','voxel51',
+    'affirm',    'airbnb',    'altanaai',    'appnovation',    'arizeai',    'assemblyai',
+    'awin',    'boldmetrics',    'clutch',    'cockroachlabs',    'coherehealth',    'comet',
+    'coreweaveu',    'd2l',    'flowtraders',    'gleanwork',    'gocardless',    'gymshark',
+    'highradius',    'hsogroupbv',    'inmobi',    'konovo',    'mthreerecruitingportal',    'neo4j',
+    'pantheonpublic',    'physicsx',    'pinterest',    'polyai',    'projectaservicesgmbhcokg',    'quince',
+    'rightmovecareers',    'ritual',    'rockstargames',    'roku',    'samsara',    'shakepay',
+    'speechmatics',    'stripe',    'tenstorrent',    'tubi-canada',    'yugabyte',    'zafinlabsamericasinc',
+    'zoominfo',
+    'hackerrank',
+    'metropolis',
+    'thoughtworks',
+    'velir',
+    'xebiacee',
+    'earnin',
+    'kardfinancialinc',
+    'lilasciences',
+    'smartsheet',
+    'truveta',
+    'lightningai',
+    'nebius',
+    'bloomreach',
+    'kargo22',
+    'robotsandpencils',
+    'zetaglobal',
+    'canonical',
+    'cloudsek',
+    'celonis',
+    'block',
+    'braze',
+    'coinbase',
+    'contentful',
+    'fireblocks',
+    'trustpilot',
+    'checkr',
+    'flexport',
+    'formlabs',
+    'launchdarkly',
+    'sofi',
+    'toast',
+    'twitch',
+    'figureai',
+    'moloco',
+    'wizinc',
+    'airtable',
+    'alloy',
+    'chainguard',
+    'formationbio',
+    'galileo',
+    'heygen',
+    'invisible',
+    'nuro',
+    'peloton',
+    'stabilityai',
+    'turing',
+    'typeface',
+    'relativity',
+    'ripple',
+    'taboola',
+    'tines',
+    'tripactions',
+    'workato',
+    'wrike',
+    'yext',
 ]
-LEVER_BOARDS = ['prosper']
+LEVER_BOARDS = ['prosper',
+    'agile-defense',    'arcadia',    'convergentresearch',    'lyrahealth',    'meds',    'ttecdigital',
+    'wealthfront',
+    'ekimetrics',
+    'intropic',
+    'wattpad',
+    'meesho',
+    'apolloresearch',
+    'epoch-ai',
+    'palantir',
+    'zoox',
+]
 
 # ------------------------------------------------- country/threshold config --
 COUNTRIES = ["India", "United Kingdom", "UAE", "Saudi Arabia",
@@ -108,13 +182,23 @@ US_CITIES = ["new york city","nyc","los angeles","san francisco","san jose",
 
 def map_country(loc):
     """Map a free-text ATS location to one of the 9 countries, else None.
-    USA locations are intentionally excluded (not returned)."""
+    USA locations are intentionally excluded (not returned).
+    Multi-location strings ('Dublin, Ireland; London, England') are checked
+    segment by segment; the first segment mapping to a target country wins,
+    so a posting listed in both the US and Toronto counts as Canada."""
     if not loc:
         return None
-    s = loc.lower().split(";")[0].strip().replace(".", "")
-    if not s or s in ("remote", "hybrid", "in-office", "in office",
-                      "on-site", "onsite", "flexible"):
-        return None
+    for raw_seg in loc.split(";"):
+        s = raw_seg.lower().strip().replace(".", "")
+        if not s or s in ("remote", "hybrid", "in-office", "in office",
+                          "on-site", "onsite", "flexible"):
+            continue
+        c = _map_single_country(s)
+        if c:
+            return c
+    return None
+
+def _map_single_country(s):
     # remote with explicit geography (USA excluded by design)
     if "remote" in s:
         if re.search(r"\bunited states\b|\busa?\b|[- ]us\b", s): return None
