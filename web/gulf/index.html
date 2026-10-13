@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Radar — Gulf Data Jobs</title>
+<meta name="description" content="Hourly-refreshed Gulf job board for data engineers, data scientists, AI/ML engineers and analysts across UAE, Saudi Arabia, Qatar, Kuwait, Bahrain and Oman. Source: NaukriGulf.">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="radar" aria-hidden="true"></span>
+      <div>
+        <h1>Career Radar <span class="gulf-tag">Gulf</span></h1>
+        <p class="sub">Data / AI / ML roles across 6 Gulf countries &middot; refreshed hourly</p>
+      </div>
+    </div>
+    <div class="meta">
+      <a class="nav-link" href="../index.html">&larr; All countries</a>
+      <span id="count" class="count"></span>
+      <span id="refreshed" class="refreshed" title=""></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="controls" aria-label="Filters">
+    <div class="row">
+      <label class="field">
+        <span>Country</span>
+        <select id="country">
+          <option value="">All Gulf countries</option>
+        </select>
+      </label>
+      <label class="field grow">
+        <span>Search</span>
+        <input id="search" type="search" placeholder="Title or company…  e.g. data engineer, Tabby" autocomplete="off">
+      </label>
+    </div>
+    <div class="row">
+      <label class="field">
+        <span>Savings goal</span>
+        <select id="goal">
+          <option value="">All jobs</option>
+          <option value="yes">Meets ₹5L/mo savings goal</option>
+          <option value="unknown">Salary not disclosed</option>
+          <option value="no">Below savings goal</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Sponsorship</span>
+        <select id="spon">
+          <option value="">Any</option>
+          <option value="yes">Sponsorship mentioned</option>
+          <option value="unknown">Not mentioned</option>
+          <option value="no">Explicitly no sponsorship</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Sort</span>
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="salary">Salary: high to low</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section id="results" class="results" aria-live="polite"></section>
+  <div class="more-wrap">
+    <button id="more" class="more" hidden>Show more</button>
+  </div>
+
+  <section class="about">
+    <h2>How the savings goal works</h2>
+    <p>Target: save <strong>₹5 lakhs/month</strong> after taxes and living costs.
+    Each job with a disclosed salary is compared against the gross annual pay
+    typically needed in that country to hit the target (midpoint of the posted range).
+    Gulf states levy no personal income tax, which is why the thresholds here
+    are lower than in taxed markets.</p>
+    <div class="thresholds" id="thresholds"></div>
+    <h2>Notes &amp; limitations</h2>
+    <ul>
+      <li>Listings come from <strong>NaukriGulf</strong> (naukrigulf.com) public search pages — the Gulf's largest job board. No login; polite scraping only.</li>
+      <li>Postings older than 60 days are dropped; stale listings are usually already filled.</li>
+      <li>Salaries are rarely disclosed on NaukriGulf cards — most jobs show "Salary not disclosed". Figures shown are annualized from monthly USD ranges and converted to local currency.</li>
+      <li>Sponsorship flags are heuristic text matches — always confirm in the posting. Most Gulf employers sponsor work visas by default.</li>
+      <li>Only roles in the 6 Gulf countries are shown (UAE, Saudi Arabia, Qatar, Kuwait, Bahrain, Oman).</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>Career Radar &middot; Gulf listings refresh hourly &middot; source: NaukriGulf (public pages)</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
