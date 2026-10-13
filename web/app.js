@@ -14,6 +14,7 @@
     goal: "",
     spon: "",
     sort: "new",
+    fresh: "",
   };
 
   var $ = function (id) { return document.getElementById(id); };
@@ -103,6 +104,11 @@
       if (state.goal === "no" && j.goal !== false) return false;
       if (state.goal === "unknown" && j.goal != null) return false;
       if (state.spon && j.spon !== state.spon) return false;
+      if (state.fresh) {
+        var cutoff = Date.now() - parseInt(state.fresh, 10) * 864e5;
+        var pt = Date.parse(j.pub || "");
+        if (isNaN(pt) || pt < cutoff) return false;
+      }
       if (q && (j.t + " " + j.co).toLowerCase().indexOf(q) === -1) return false;
       return true;
     });
@@ -171,6 +177,9 @@
     });
     $("spon").addEventListener("change", function (e) {
       state.spon = e.target.value; state.shown = PAGE; render();
+    });
+    $("fresh").addEventListener("change", function (e) {
+      state.fresh = e.target.value; state.shown = PAGE; render();
     });
     $("sort").addEventListener("change", function (e) {
       state.sort = e.target.value; state.shown = PAGE; render();
