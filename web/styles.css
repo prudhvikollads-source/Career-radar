@@ -178,3 +178,17 @@ body {
   .topbar .wrap { align-items: flex-start; }
   .meta { text-align: left; }
 }
+
+/* Gulf portal additions */
+.gulf-tag {
+  display: inline-block; font-size: .68rem; font-weight: 700;
+  background: #0e7a3d; color: #fff; border-radius: 6px;
+  padding: 2px 8px; margin-left: 6px; vertical-align: middle;
+  letter-spacing: .4px; text-transform: uppercase;
+}
+.nav-link {
+  display: inline-block; color: #dbe4f0; text-decoration: none;
+  border: 1px solid rgba(255,255,255,.25); border-radius: 8px;
+  padding: 5px 12px; font-size: .82rem; margin-right: 10px;
+}
+.nav-link:hover { background: rgba(255,255,255,.12); color: #fff; }
