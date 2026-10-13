@@ -61,6 +61,9 @@ The GitHub Action runs `etl/fetch_jobs.py` daily (~06:30 UTC) and commits the
 fresh `web/data/jobs.json`. The page header shows "listings refreshed X ago"
 from the embedded timestamp. A manual run is available via *workflow_dispatch*.
 
+**Freshness policy:** postings older than 60 days are dropped. Stale listings
+are usually already filled, and keeping them drowns out real openings.
+
 **Note:** GitHub does not accept workflow files pushed through the API, so
 `.github/workflows/etl.yml` must be added once via the GitHub web UI
 (repo → Add file → Upload files). Everything else can be pushed via API.
