@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Career Radar — India Data Jobs</title>
+<meta name="description" content="Hourly-refreshed India job board for data engineers, data scientists, AI/ML engineers and analysts across 8 cities. Source: Naukri.com.">
+<link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">
+      <span class="radar" aria-hidden="true"></span>
+      <div>
+        <h1>Career Radar <span class="gulf-tag">India</span></h1>
+        <p class="sub">Data / AI / ML roles across 8 Indian cities &middot; refreshed hourly</p>
+      </div>
+    </div>
+    <div class="meta">
+      <a class="nav-link" href="../index.html">&larr; All countries</a>
+      <span id="count" class="count"></span>
+      <span id="refreshed" class="refreshed" title=""></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="controls" aria-label="Filters">
+    <div class="row">
+      <label class="field">
+        <span>City</span>
+        <select id="city">
+          <option value="">All cities</option>
+        </select>
+      </label>
+      <label class="field grow">
+        <span>Search</span>
+        <input id="search" type="search" placeholder="Title or company…  e.g. data engineer, Flipkart" autocomplete="off">
+      </label>
+    </div>
+    <div class="row">
+      <label class="field">
+        <span>Savings goal</span>
+        <select id="goal">
+          <option value="">All jobs</option>
+          <option value="yes">Meets ₹5L/mo savings goal</option>
+          <option value="unknown">Salary not disclosed</option>
+          <option value="no">Below savings goal</option>
+        </select>
+      </label>
+      <label class="field">
+        <span>Sort</span>
+        <select id="sort">
+          <option value="new">Newest first</option>
+          <option value="salary">Salary: high to low</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section id="results" class="results" aria-live="polite"></section>
+  <div class="more-wrap">
+    <button id="more" class="more" hidden>Show more</button>
+  </div>
+
+  <section class="about">
+    <h2>How the savings goal works</h2>
+    <p>Target: save <strong>₹5 lakhs/month</strong> after taxes and living costs.
+    Each job with a disclosed salary (Naukri shows "Lacs PA") is compared against
+    <strong>₹95,00,000/year</strong> gross, the pay typically needed in India to hit the target.</p>
+    <div class="thresholds" id="thresholds"></div>
+    <h2>Notes &amp; limitations</h2>
+    <ul>
+      <li>Listings come from <strong>Naukri.com</strong> (naukri.com) public search — India's largest job board. No login; polite scraping only.</li>
+      <li>Postings older than 60 days are dropped; stale listings are usually already filled.</li>
+      <li>No visa sponsorship is needed for India roles — you are already authorized to work there.</li>
+      <li>Only data/AI roles in the 8 listed cities are shown.</li>
+    </ul>
+  </section>
+</main>
+
+<footer class="wrap foot">
+  <p>Career Radar &middot; India listings refresh hourly &middot; source: Naukri.com (public pages)</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
